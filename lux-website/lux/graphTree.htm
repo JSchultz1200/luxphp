@@ -1,0 +1,204 @@
+<html>
+<head>
+	<title>Lux PHP - Entity Relationships</title>
+
+	<script type="text/javascript" src="js/wz_jsgraphics.js"></script>
+	<script type="text/javascript" src="js/JSON.js"></script>
+	<script src="js/yui/yahoo/yahoo.js"></script>
+	<script src="js/yui/connection/connection.js"></script>
+	<script src="js/lib/prototype.js" type="text/javascript"></script>
+	<script src="js/src/scriptaculous.js" type="text/javascript"></script>
+	<script src="js/lux.js" type="text/javascript"></script>
+
+	<link rel="stylesheet" href="lux.css" type="text/css">
+</head>
+
+<body>
+<div id="myCanvas" style="position:relative;height:750px;width:100%;"></div>
+
+<script type="text/javascript">
+
+var query = window.location.search.substring(1);
+var url = "/pl/lux/graphTree.pl?";
+var url2 = "/pl/lux/note.pl?";
+
+if(query.indexOf('file=') == 0)
+{
+	var strMyEntityType = "file";
+	var strMyEntity = query.substring(5);
+	var url1 = url + "file=" + strMyEntity + "&action=queryEntities";;
+
+	var url2 = url2 + "file=" + strMyEntity + "&action=queryNotes";
+}
+else if(query.indexOf('global=') == 0)
+{
+	var strMyEntityType = "global";
+	var strMyEntity = query.substring(7);
+	var url1 = url + "?global=" + strMyEntity + "&action=queryEntities";
+
+	var url2 = url2 + "&action=queryNotes";
+}
+
+var graphEntitiesCallback =
+{
+	success: function(o)
+		 {
+			var myString = o.responseText;
+			var objEntities=myString.parseJSON();
+			drawEntities(objEntities, strMyEntityType);
+		 },
+	failure: function(o)
+		 {
+			alert("There was a problem with the URL.");
+		 },
+	argument: ''
+};
+
+var graphNotesCallback =
+{
+        success: function(o)
+                 {
+			var myString = o.responseText;
+			var objNotes=myString.parseJSON();
+			drawNotes(objNotes); // draws pictures
+			displayNotes(objNotes);	//displays actual text info
+                 },
+        failure: function(o)
+                 {
+                        alert("There was a problem with the URL.");
+                 },
+        argument: ''
+};
+
+var transaction = YAHOO.util.Connect.asyncRequest('GET', url1, graphEntitiesCallback, null);
+var transactionNotes = YAHOO.util.Connect.asyncRequest('GET', url2, graphNotesCallback, null);
+
+function loadEntity(type, entity)
+{
+	location.replace("graphTree.htm?" + type + "=" + entity);
+}
+
+function drawNotes(objNotes)
+{
+	var jg = new jsGraphics("myCanvas");
+
+        jg.setColor("#629FE4");
+        jg.setStroke(1);
+
+        var x = 0;
+        var strNoteLink;
+
+        var x1 = 460;
+        var x2 = 305;
+
+        var y1 = 460;
+        var y2 = 435;
+
+        jg.setFont("arial","10px");
+
+        for(x=0; x < objNotes.notes.length; x++)
+        {
+		y1 = y1 - 50;
+                y2 = y2 + 30;
+
+                jg.drawLine(x1,x2,y1,y2);
+                jg.drawImage("images/" + objNotes.notes[x].strNoteType + ".gif", y1-5,y2-5,18,18);
+
+                strNoteLink = "<a class=\"lux_Variable\" href=\"#note_" + objNotes.notes[x].intNoteID + "\">" + objNotes.notes[x].strTitle + "</a>";
+                jg.drawString(strNoteLink, y1, y2+16);
+
+        }
+
+	jg.paint();
+
+}
+
+function displayNotes(objNotes)
+{
+        // get the reference for the body
+        var body = document.getElementsByTagName("body")[0];
+
+        for(var x=0; x < objNotes.notes.length; x++)
+        {
+		// Note Heading (> Note: title)
+		var arrow_div = document.createElement("<div>");
+
+		arrow_div.innerHTML = "<a name=\"note_" + objNotes.notes[x].intNoteID + "\"></a><img src=\"/lux/images/arrow-down.gif\" style=\"vertical-align:text-top\" border=\"0\" name=\"arrow-down.gif\" id=\"arrow-" 
+					+ x + "\" onmouseover=this.style.cursor='pointer'; onclick=\"SlideRows('arrow-" + x + "', 'd" + x + "','/lux');\">"
+					+ "&nbsp;&nbsp; " + objNotes.notes[x].strTitle + "&nbsp;&nbsp;&nbsp;&nbsp;"
+					+ "<a class=\"lux_headerLink\" href=\"javascript: void window.open('note.htm?action=edit&intNoteID=" +  objNotes.notes[x].intNoteID + "', '', 'width=800, height=350');\">Edit</a>"
+					+ "&nbsp;&nbsp;|&nbsp;&nbsp;"
+					+ "<a class=\"lux_headerLink\" href=\"note.htm?action=delete&intNoteID=" + objNotes.notes[x].intNoteID + "\">Delete</a>";
+
+		body.appendChild(arrow_div);
+		arrow_div.setAttribute("class", "arrow_note");
+
+		//Div for slide rows to show/hide
+		var note_div = document.createElement("<div>");
+		note_div.setAttribute("id", "d" + x);
+		body.appendChild(note_div);
+
+		// Note text
+		var tbl     = document.createElement("<table>");
+		var tblBody = document.createElement("<tbody>");
+		var row = document.createElement("<tr>");
+		var cell = document.createElement("<td>");
+
+		cell.innerHTML = objNotes.notes[x].strText;
+		row.appendChild(cell);
+		tblBody.appendChild(row);
+		tbl.appendChild(tblBody);
+
+		document.getElementById("d" + x).appendChild(tbl);
+
+		var br = document.createElement("br");
+		body.appendChild(br);
+		tbl.setAttribute("class", "lux_note");
+		tbl.setAttribute("width", "100%");
+	}
+}
+
+function drawEntities(objEntities, strMyEntityType)
+{
+	var jg = new jsGraphics("myCanvas");
+
+	jg.setColor("#629FE4");
+	jg.setStroke(1);
+
+	var x = 0;
+	var strEntityLink;
+
+	var x1 = 460;
+	var x2 = 305;
+
+	var y1 = 460;
+	var y2 = 535;
+
+	//Draw center entity picture
+	jg.drawImage("images/" + strMyEntityType + ".gif", 450,300,32,32);		
+
+	jg.setFont("arial","10px");
+	jg.paint();
+
+	for(x=0; x < objEntities.entityRelationships.length; x++)
+	//80 entities drawn like this breaks the camels back
+	//for(x=0; x < 80; x++)
+	{
+		jg.drawLine(x1,x2,y1,y2);
+		strGraphicEntityLink = "onmouseover=this.style.cursor='pointer';" + " onClick=loadEntity(\'" + objEntities.entityRelationships[x].strEntityType + "\',\'" + objEntities.entityRelationships[x].strRelationEntity + "\');";
+		jg.drawImage("images/" + objEntities.entityRelationships[x].strEntityType + ".gif", y1,y2,18,18, strGraphicEntityLink);
+
+		strEntityLink = "<a class=\"lux_Variable\" href=\"/pl/lux/lux.pl?q=" + objEntities.entityRelationships[x].strRelationEntity + "\">" + objEntities.entityRelationships[x].strRelationEntity + "</a>";	
+		jg.drawString(strEntityLink, y1+5, y2+20);
+
+		y1 = y1 + 25;
+		y2 = y2 - 14;
+	}
+
+	jg.paint();
+}
+
+</script>
+
+</body>
+</html>

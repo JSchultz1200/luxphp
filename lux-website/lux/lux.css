@@ -1,0 +1,457 @@
+body
+{
+	font-family: Arial, Helvetica;
+	margin: 6px;
+	padding: 0;
+	/*background-color:#FBFDF8;*/
+}
+
+b
+{
+	/* bolded matches css */
+	color: red;
+}
+
+.button
+{
+  background-color : #f5f5f5;
+  color            : #000000;
+  border           : 1px solid #003366;
+}
+
+.inputbox
+{
+  border           : 1px solid #B8D1E8;
+  background       : #FFFFFF;
+  color            : #336699;
+}
+
+.lux_pageHeader
+{
+	position:absolute;
+	z-index:2;
+	float:left;
+	height:100px;
+	margin-top:15px;
+}
+
+#lux_logoText
+{
+	padding-bottom:15px;
+}
+
+#lux_logoImg
+{
+	padding-right:70px;
+}
+
+/* Right hand side links to Indexing | Configuration */
+#lux_headerLinks
+{
+	position:absolute;
+	z-index:0;
+	width: 98%;
+	height:100px;
+
+	color: #27596E;
+	text-align: right;
+	margin-top:0px;
+	font-size:10px;
+}
+
+/* Results for search (search) text at the top of the page */
+.lux_headerMatch
+{
+	color: #000000;
+	font-weight: bold;
+}
+
+.lux_resultsText
+{
+	position:absolute;
+	margin-top:100px;
+}
+
+#searchMatchesContainer
+{
+	position:absolute;
+	z-index:3;
+	margin-top:100px;
+}
+
+a.lux_headerLink
+{
+        text-decoration: none;
+}
+
+a:link.lux_headerLink
+{
+        color: #27596E;
+}
+
+a:visited.lux_headerLink
+{
+        text-decoration: none;
+        color: #27596E;
+}
+
+a:hover.lux_headerLink
+{
+        text-decoration: underline;
+        color: #3E7D97;
+}
+
+a:active.lux_headerLink
+{
+        text-decoration: none;
+        color: #000000;
+}
+
+/* Php comments */
+.lux_phpComment
+{
+	color: orange;
+}
+
+/* Line number for a page display (not initial search results) */
+.lux_lineNumber
+{
+	color: #000000;
+}
+
+/* Match header:  (> filename.php) */
+.lux_mHeader
+{
+	font-family: Arial, Helvetica;
+	font-size:10px;
+	vertical-align:text-top;
+}
+
+/* Line Number for the getMatches (initial search) functions */
+
+/* Search match and page match */
+.lux_sMatch
+{
+	margin-top:5px;
+	margin-bottom:5px;
+	margin-left:0px;
+	border:1px solid silver;
+	/*background-color:#f5f5f5;*/ 	/*darker grey*/
+	background-color:#f9f9f9;	/*lighter grey*/
+	padding:0.5em;
+	width:99%;
+	color:#222;
+}
+
+.lux_pMatch
+{
+        margin-top:25px;
+        margin-bottom:5px;
+        margin-left:0px;
+        border:1px solid silver;
+        /*background-color:#f5f5f5;*/   /*darker grey*/
+        background-color:#f9f9f9;       /*lighter grey*/
+        padding:0.5em;
+        width:99%;
+        color:#222;
+}
+
+
+/* Hover color for search matches */
+.lux_sMatch:hover
+{
+	/* From dark blue to lighter */
+	/*background-color:#C3E5FF;*/
+	/*background-color:#D4ECFE;*/
+	background-color:#EFF8FF;
+	/*background-color:#F5FBFF;*/
+}
+
+/************ Line Match (i.e., 352:) ************/
+
+.lux_lMatch
+{
+	color: red;
+	font-weight: bold;
+}
+
+.arrow
+{
+	position:relative;
+	z-index:1;
+	border: 1px solid #cccccc;
+	/*background-color:#CCEC88;*/
+	/*background-color:#E5FCB5;*/	/*light green */
+	/*background-color:#EDECA9;*/	/* tan */
+	/*background-color:#D7EDA9;*/	/* darker green */
+	background-color:#E2E2E2;	/* grey */
+	/*background-color:#BFD9E3;*/	/* dark blue */
+}
+
+/* > Note: title CSS) */
+.arrow_note
+{
+	border: 1px solid #cccccc;
+	/* background-color:#BFD9E3;*/  /* blue */ 
+	background-color:#d7e9b8;
+	font-size:11px;
+	padding:1px;
+}
+
+/* Note text CSS */
+.lux_note
+{
+	border: 1px solid #cccccc;
+	background-color:#f6f6ed;
+	font-size:11px;
+	padding:3px;
+}
+
+/* Link properties for the line number links on the search results page */
+
+a:link.lux_lNum
+{
+	text-decoration: underline;
+	/*color:#0C3546;*/
+	color:#27596E;
+	font-size:11px;
+}
+
+a:visited.lux_lNum
+{
+        text-decoration: none;
+        color: #93A35B;
+	font-size:11px;
+}
+
+a:hover.lux_lNum
+{
+        text-decoration: underline;
+	/*color: #BFD9E3;*/
+	 color: #3E7D97;
+}
+
+a:active.lux_lNum
+{
+        text-decoration: none;
+        color: #000000;
+}
+
+/* Link properties for the link (filename)in the search results (match) header (> filename) */
+
+a.lux_mHeader
+{
+        text-decoration: underline;
+}
+
+a:link.lux_mHeader
+{
+	color: #27596E;
+}
+
+a:visited.lux_mHeader
+{
+        text-decoration: none;
+        color: #93A35B;
+}
+
+a:hover.lux_mHeader
+{
+        text-decoration: underline;
+        color: #3E7D97;
+}
+
+a:active.lux_mHeader
+{
+        text-decoration: none;
+        color: #000000;
+}
+
+
+/*****************************************/
+/************* Variable links ************/
+/*And Line Number Links on Search Results*/
+/*****************************************/
+
+a.lux_Variable
+{
+	text-decoration: none;
+}
+
+a:link.lux_Variable
+{
+	color: #629FE4;
+}
+
+a:visited.lux_Variable
+{
+	text-decoration: none;
+	/*color: #A35B60;*/
+	color: #93A35B;
+}
+
+a:hover.lux_Variable
+{
+	text-decoration: underline;
+	color: #BE8430;
+}
+
+a:active.lux_Variable
+{
+	text-decoration: none;
+	color: #000000;
+}
+
+/****************************************/
+/************ Function links ************/
+/****************************************/
+
+a.lux_functionDefinition
+{
+        text-decoration: none;
+}
+
+a:link.lux_functionDefinition
+{
+        color: #0419E8;
+}
+
+a:visited.lux_functionDefinition
+{
+        text-decoration: none;
+        color: #93A35B;
+}
+
+a:hover.lux_functionDefinition
+{
+        text-decoration: underline;
+        color: #E87404;
+}
+
+a:active.lux_functionDefinition
+{
+        text-decoration: none;
+        color: #000000;
+}
+
+/************* Official PHP *************/
+/************ Function links ************/
+/****************************************/
+
+a.lux_phpFunction
+{
+	color: green;
+	text-decoration: none;
+}
+
+/* Web Indexer CSS */
+
+#webIndexerTable
+{
+	width: 750px;
+	margin-top:225px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+#webIndexerSingleImg
+{
+	margin-left: 10px;
+}
+
+#webIndexerModifiedImg
+{
+        margin-left: 40px;
+}
+
+#webIndexerFullImg
+{
+        margin-left: 30px;
+}
+
+#singleFileIndexInput
+{
+	padding-top:25px;
+	display:none;
+}
+
+/* Footer CSS */
+
+#lux_content
+{
+
+}
+
+#lux_footer
+{
+	position:absolute;
+	color: #27596E;
+        font-size:10px;
+	bottom:0;
+	width:99%;
+	text-align:center;
+}
+
+.lux_projectsDropDownSearch
+{
+	font-size: 11px;
+	position:absolute;
+	z-index:5;
+	margin-top:-32px;
+	margin-left:385px;
+}
+
+.lux_projectsDropDownSearch select
+{
+        font-size:11px;
+        color: #336699;
+}
+
+.lux_projectsDropDown, .noteLinks
+{
+	font-size: 11px;
+	position: absolute;
+	z-index: 5;
+        margin-top: 90px;
+	text-align: right;
+	width: 98%;
+}
+
+.lux_projectsDropDown select
+{
+	font-size:11px;
+	color: #336699;
+}
+
+.lux_paging
+{
+	font-size:11px;
+	color: #336699;
+	padding:5px;
+	margin-top:25px;
+}
+
+.viewBookmarks, .viewNotes
+{
+	font-size:11px;
+	width:100%;
+}
+
+#bookmarkHeader, #noteHeader
+{
+	background-color:#BFD9E3;
+	text-align:center;
+}
+
+.bookmarkStripe, .noteStripe
+{
+	background-color:#dddddd;
+	text-align:center;
+}
+
+.noteH3
+{
+	color: #336699;
+	padding:0px;
+	margin:6px;
+}

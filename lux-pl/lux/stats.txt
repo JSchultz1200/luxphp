@@ -1,0 +1,9 @@
+initial index of 5,133 files:
+
+ono-sendai:/usr/local/apache2/pl/lux josh$ date; ./mysqlIndexer.pl; date
+Sat Dec  9 16:41:08 PST 2006
+Sat Dec  9 16:42:54 PST 2006
+
+re-index "modified only" test with one file updated:
+
+
